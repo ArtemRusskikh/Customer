@@ -2,12 +2,14 @@ package ru.pflb.store;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
-public class StoreApplication {
+@EnableAsync
+public class CustomerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StoreApplication.class, args);
+		SpringApplication.run(CustomerApplication.class, args);
 	}
 
 }

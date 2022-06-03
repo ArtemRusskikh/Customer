@@ -1,21 +1,29 @@
 package ru.pflb.store.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+import java.util.Set;
+
 @Entity
-@Table(name = "CUSTOMER")
+@Table(name = "CUSTOMERS")
 @Getter
 @Setter
-@ToString
+@NoArgsConstructor
+@DynamicInsert
+@DynamicUpdate
+
 public class Customer {
 
     @Id
     @Column(name = "customer_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long customer_id;
 
     @Column(name = "name")
@@ -26,5 +34,8 @@ public class Customer {
 
     @Column(name = "phone")
     private String phone;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+    private Set<Order> users;
 
 }
