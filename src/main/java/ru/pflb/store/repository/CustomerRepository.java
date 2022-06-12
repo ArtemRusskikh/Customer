@@ -5,4 +5,6 @@ import ru.pflb.store.entities.Customer;
 
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
 
+
+
 }

@@ -3,13 +3,12 @@ package ru.pflb.store.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "CUSTOMERS")
@@ -35,7 +34,8 @@ public class Customer {
     @Column(name = "phone")
     private String phone;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-    private Set<Order> users;
+    @OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL)
+    @JoinColumn(name ="customer_id",referencedColumnName = "customer_id")
+    private List<Order> orders;
 
 }

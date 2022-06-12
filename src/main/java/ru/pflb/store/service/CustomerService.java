@@ -13,10 +13,9 @@ public interface CustomerService {
 
     List<Customer> getAll();
 
-    void addNewOrder(long customer_id, Order order);
 
     List<Order> getOrders(long customer_id);
 
-    boolean deleteOrder(long customer_id, long id);
+    boolean deleteOrder(long order_id);
 
 }

@@ -19,7 +19,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private OrderRepository orderRepository;
 
-
     @Override
     @Transactional
     public void regNewCustomer(Customer customer) {
@@ -36,26 +35,15 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAll();
     }
 
-
-    @Override
-    public void addNewOrder(long customer_id, Order order) {
-
-        orderRepository.save(order);
-
-    }
-
     @Override
     public List<Order> getOrders(long customer_id) {
         return orderRepository.findAll();
     }
 
     @Override
-    public boolean deleteOrder(long customer_id, long id) {
-        orderRepository.deleteById(id);
+    public boolean deleteOrder(long order_id) {
+        orderRepository.deleteById(order_id);
         return true;
     }
-
-
-
 
 }

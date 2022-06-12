@@ -31,19 +31,11 @@ public class CustomerController {
         customerService.regNewCustomer(customer);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-    @PostMapping(value = "addOrder")
-    public ResponseEntity<?> addOrder(@RequestParam long customer_id, @RequestBody Order order){
-        customerService.addNewOrder(customer_id, order);
+    @PutMapping(value = "update_customer")
+    public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
+        webHookService.getWebHook();
+        customerService.regNewCustomer(customer);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @GetMapping(value = "getAllCustomers")
-    public ResponseEntity<List<Customer>> getAllCustomers(){
-        final List<Customer> customers = customerService.getAll();
-        return customers != null && !customers.isEmpty()
-                ? new ResponseEntity<>(customers, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "orders/getAllOrders/{customer_id}")
@@ -54,13 +46,20 @@ public class CustomerController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping(value = "/customer/orders/{customer_id}/{id}")
-    public ResponseEntity<?> deleteOrder(@PathVariable long customer_id, @PathVariable long id) {
-        final boolean deleted = customerService.deleteOrder(customer_id,id);
+    @DeleteMapping(value = "/customer/orders/delete/{order_id}")
+    public ResponseEntity<?> deleteOrder(@PathVariable long order_id) {
+        final boolean deleted = customerService.deleteOrder(order_id);
 
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
+    @GetMapping(value = "getAllCustomers")
+    public ResponseEntity<List<Customer>> getAllCustomers(){
+        final List<Customer> customers = customerService.getAll();
+        return customers != null && !customers.isEmpty()
+                ? new ResponseEntity<>(customers, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
