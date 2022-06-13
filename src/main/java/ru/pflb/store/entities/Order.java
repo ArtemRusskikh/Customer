@@ -24,16 +24,17 @@ public class Order {
 //    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long order_id;
 
-    @Column(name = "valueOrder")
+    @Column(name = "valueorder")
     private String valueOrder;
 
     @Column(name = "comment")
     private String comment;
 
-    @Column(name = "createdAt")
+    @Column(name = "createdat")
     private Instant createdAt;
 
 //    @ManyToOne(cascade = CascadeType.ALL)
-//   // @JoinColumn(name = "customer_id")
+//    @JoinColumn(name = "customer_id")
 //    private Customer customer;
+
 }

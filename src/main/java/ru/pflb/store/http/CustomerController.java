@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import ru.pflb.store.entities.Customer;
 import ru.pflb.store.entities.Order;
+import ru.pflb.store.repository.OrderInsertRepository;
 import ru.pflb.store.service.CustomerService;
 import ru.pflb.store.service.WebHookService;
 
@@ -18,11 +19,13 @@ public class CustomerController {
 
     private final CustomerService customerService;
     private final WebHookService webHookService;
+    private final OrderInsertRepository orderInsertRepository;
 
     @Autowired
-    public CustomerController(CustomerService customerService, WebHookService webHookService) {
+    public CustomerController(CustomerService customerService, WebHookService webHookService, OrderInsertRepository orderInsertRepository) {
         this.customerService = customerService;
         this.webHookService = webHookService;
+        this.orderInsertRepository = orderInsertRepository;
     }
 
     @PostMapping(value = "new_customer")
@@ -31,10 +34,17 @@ public class CustomerController {
         customerService.regNewCustomer(customer);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    @PutMapping(value = "update_customer")
-    public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
-        webHookService.getWebHook();
-        customerService.regNewCustomer(customer);
+//    @PutMapping(value = "update_customer")
+//    public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
+//        webHookService.getWebHook();
+//        customerService.updateCustomer(customer);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
+
+    @PutMapping(value = "update_customer/{customer_id}")
+    public ResponseEntity<?> updateCustomer(@RequestBody Order order, @PathVariable long customer_id){
+        orderInsertRepository.insertWithQuery(order,customer_id);
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -45,6 +55,7 @@ public class CustomerController {
                 ? new ResponseEntity<>(orders, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
 
     @DeleteMapping(value = "/customer/orders/delete/{order_id}")
     public ResponseEntity<?> deleteOrder(@PathVariable long order_id) {

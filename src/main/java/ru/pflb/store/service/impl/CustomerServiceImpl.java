@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Order> getOrders(long customer_id) {
-        return orderRepository.findAll();
+        return orderRepository.findByCustomer(customer_id);
     }
 
     @Override

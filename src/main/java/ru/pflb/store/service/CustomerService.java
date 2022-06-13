@@ -1,5 +1,6 @@
 package ru.pflb.store.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.pflb.store.entities.Customer;
 import ru.pflb.store.entities.Order;
 
@@ -12,7 +13,6 @@ public interface CustomerService {
     Customer getCustomer(long customer_id);
 
     List<Customer> getAll();
-
 
     List<Order> getOrders(long customer_id);
 
