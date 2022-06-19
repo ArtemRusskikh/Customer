@@ -1,6 +1,5 @@
 package ru.pflb.store.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pflb.store.entities.Customer;
@@ -9,15 +8,22 @@ import ru.pflb.store.repository.OrderRepository;
 import ru.pflb.store.repository.CustomerRepository;
 import ru.pflb.store.service.CustomerService;
 
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
-    private OrderRepository orderRepository;
+//    @Autowired
+   final  private CustomerRepository customerRepository;
+//    @Autowired
+   final private OrderRepository orderRepository;
+
+    public CustomerServiceImpl(CustomerRepository customerRepository, OrderRepository orderRepository) {
+        this.customerRepository = customerRepository;
+        this.orderRepository = orderRepository;
+    }
 
     @Override
     @Transactional
@@ -36,9 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Order> getOrders(long customer_id) {
-        return orderRepository.findByCustomer(customer_id);
-    }
+    public List<Order> getOrders(long customer_id) { return orderRepository.findByCustomer(customer_id); }
 
     @Override
     public boolean deleteOrder(long order_id) {
