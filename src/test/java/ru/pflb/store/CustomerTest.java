@@ -75,7 +75,7 @@ public class CustomerTest {
     }
 
     @Test
-    void checkAddCustomer (){
+    void checkRegNewCustomer (){
 
         Long id = 1L;
         Instant d = Instant.parse("2022-05-14T18:25:43.511Z");
